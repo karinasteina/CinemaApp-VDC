@@ -1,13 +1,57 @@
 package com.example.demo.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import lombok.*;
 
 @Entity
-@Table(name="Movies")
+@Table(name="MovieTable")
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
 public class Movie {
+    @Column(name="MId")
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    @Setter(value = AccessLevel.NONE)
+    private long mid;
 
-    private String name;
+    @Column(name="Title")
+    @NotNull
+    // @Pattern
+    private String title;
+
+    @Column(name="Length")
+    @Min(5)
+    @Max(300)
+    private int length;
+
+    @Column(name="Description")
+    @NotNull
+    // @Pattern
+    private String description;
+
+    @Column(name="Genre")
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private Genre genre;
+
+    @Column(name="Image")
+    @NotNull
+    // @Pattern
+    private String img;
+
+    public Movie(String title, int length, String description, Genre genre, String img){
+        setTitle(title);
+        setLength(length);
+        setDescription(description);
+        setGenre(genre);
+        setImg(img);
+    }
+
+
 }
