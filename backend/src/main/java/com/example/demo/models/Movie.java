@@ -7,6 +7,9 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name="MovieTable")
 @Getter
@@ -44,6 +47,10 @@ public class Movie {
     @NotNull
     // @Pattern
     private String img;
+
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
+    @ToString.Exclude
+    private List<Session> sessions = new ArrayList<>();
 
     public Movie(String title, int length, String description, Genre genre, String img){
         setTitle(title);
