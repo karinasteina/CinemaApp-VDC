@@ -9,6 +9,8 @@ import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="SessionTable")
@@ -41,10 +43,19 @@ public class Session {
     @JoinColumn(name="mid")
     private Movie movie;
 
-    public Session(LocalDate date, LocalTime time, double price, Movie movie){
+    @ManyToOne
+    @JoinColumn(name="hid")
+    private Hall hall;
+
+    @OneToMany(mappedBy = "session", cascade = CascadeType.ALL)
+    @ToString.Exclude
+    private List<Ticket> tickets = new ArrayList<>();
+
+    public Session(LocalDate date, LocalTime time, double price, Movie movie, Hall hall){
         setDate(date);
         setTime(time);
         setPrice(price);
         setMovie(movie);
+        setHall(hall);
     }
 }

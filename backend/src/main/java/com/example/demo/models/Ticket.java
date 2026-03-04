@@ -35,9 +35,14 @@ public class Ticket {
     //@Pattern()
     private String email;
 
-    public Ticket(int rowNumber, int seatNumber, String email){
+    @ManyToOne
+    @JoinColumn(name="ssid")
+    private Session session;
+
+    public Ticket(int rowNumber, int seatNumber, String email, Session session){
         setRowNumber(rowNumber);
         setSeatNumber(seatNumber);
         setEmail(email);
+        setSession(session);
     }
 }
