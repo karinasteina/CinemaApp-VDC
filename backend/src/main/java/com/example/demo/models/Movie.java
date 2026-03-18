@@ -1,5 +1,6 @@
 package com.example.demo.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -50,6 +51,7 @@ public class Movie {
 
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
     @ToString.Exclude
+    @JsonIgnore
     private List<Session> sessions = new ArrayList<>();
 
     public Movie(String title, int length, String description, Genre genre, String img){

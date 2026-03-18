@@ -37,6 +37,9 @@ public class DemoApplication {
                     Session session1 = new Session(LocalDate.now().plusDays(23), LocalTime.now(), 7.50, movie1, hall1);
                     sessionRepo.save(session1);
                 }
+
+             //   Movie movie2 = new Movie("Test Movie2", 59, "Just a test movie2", Genre.Comedy, "image2.png");
+              //  movieRepo.save(movie2);
             }
         };
     }
