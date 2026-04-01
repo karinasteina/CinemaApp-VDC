@@ -27,15 +27,15 @@ public class DemoApplication {
         return new CommandLineRunner() {
             @Override
             public void run(String... args) throws Exception {
-                Movie movie1 = new Movie("The Super Mario Galaxy Movie", 98, "The Super Mario Galaxy Movie (2026) is an animated sci-fi adventure sequel from Illumination and Nintendo, following Mario, Luigi, and Princess Peach into outer space to battle Bowser Jr. and meet Princess Rosalina.",
-                        Genre.Comedy, "image1.jpg");
+                //Movie movie1 = new Movie("The Super Mario Galaxy Movie", 98, "The Super Mario Galaxy Movie (2026) is an animated sci-fi adventure sequel from Illumination and Nintendo, following Mario, Luigi, and Princess Peach into outer space to battle Bowser Jr. and meet Princess Rosalina.",
+                //        Genre.Comedy, "image1.jpg");
 
-                movieRepo.save(movie1);
+              //  movieRepo.save(movie1);
 
-                Movie movie2 = new Movie("Minions & Monsters", 120, "The story follows the Minions in the 1920s attempting to make a monster movie, leading them to summon a creature named \"Goomi\" and unleash chaos in old Hollywood.",
-                        Genre.Action, "image2.jpg");
+               // Movie movie2 = new Movie("Minions & Monsters", 120, "The story follows the Minions in the 1920s attempting to make a monster movie, leading them to summon a creature named \"Goomi\" and unleash chaos in old Hollywood.",
+                 //       Genre.Action, "image2.jpg");
 
-                movieRepo.save(movie2);
+              //  movieRepo.save(movie2);
             }
         };
     }

@@ -6,4 +6,5 @@ import java.util.ArrayList;
 
 public interface IMovieService {
     public ArrayList<Movie> retrieveAll() throws Exception;
+    public Movie getMovieById(long id) throws Exception;
 }

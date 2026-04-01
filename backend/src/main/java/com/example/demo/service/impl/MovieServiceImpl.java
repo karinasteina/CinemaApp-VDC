@@ -25,4 +25,15 @@ public class MovieServiceImpl implements IMovieService {
         return result;
     }
 
+    @Override
+    public Movie getMovieById(long id) throws Exception {
+        if(!movieRepo.existsById(id)){
+            throw new Exception("Movie not found");
+        }
+
+        Movie movie = movieRepo.findById(id).get();
+
+        return movie;
+    }
+
 }
