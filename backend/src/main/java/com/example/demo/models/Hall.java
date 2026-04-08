@@ -1,5 +1,6 @@
 package com.example.demo.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -33,6 +34,7 @@ public class Hall {
 
     @OneToMany(mappedBy = "hall", cascade = CascadeType.ALL)
     @ToString.Exclude
+    @JsonIgnore
     private List<Session> sessions = new ArrayList<>();
 
     public Hall(int rows, int totalSeats){

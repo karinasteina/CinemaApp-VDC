@@ -1,5 +1,6 @@
 package com.example.demo.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
@@ -41,6 +42,7 @@ public class Session {
 
     @ManyToOne
     @JoinColumn(name="mid")
+    @JsonIgnore
     private Movie movie;
 
     @ManyToOne

@@ -1,18 +1,21 @@
-import { useEffect, useState } from "react";
+import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import MovieGallery from "./components/MovieGallery";
+import MovieDetails from "./components/MovieDetails";
+
 
 function App() {
-  const [message, setMessage] = useState("");
-
-  useEffect(() =>{
-    fetch("http://localhost:8080/show")
-      .then(res => res.text())
-      .then(data => setMessage(data));
-  }, []);
-
+  
   return (
-    <div>
-      <p>{message}</p>
-    </div>
+    <Router>
+
+      <Routes>
+
+        <Route path="/" element={<MovieGallery />}/>
+        <Route path="/movie/:id" element={<MovieDetails />} />
+
+      </Routes>
+
+    </Router>
   );
   
 }
