@@ -56,21 +56,44 @@ function MovieDetails() {
                             {movie.description}
                         </p>
 
-                        <div>
-                            <h3>Sessions:</h3>
+                        <div className="mt-5 p-4" style={{
+                            backgroundColor: '#161616',
+                            borderRadius: '20px',
+                            border: '1px solid #222'
+                        }}>
+                            <p className="text-light text-uppercase fw-bold mb-4" style={{ letterSpacing: '2px' }}>
+                                🎥 Available sessions</p>
+                            <div className="d-flex flex-wrap gap-3">
                             {movie.sessions && movie.sessions.length > 0 ? (
                                 movie.sessions.map((s) => (
-                                    <div key={s.ssid}>
-                                        <span><b>Time:</b> {s.time}</span>
-                                        <span><b>Date:</b> {s.date}</span>
-                                        <span><b>Hall:</b> {s.hall.hid}</span>
-                                        <span><b>Price:</b> {s.price} $</span>
-                                    </div>
+                                    <button 
+                                    key={s.ssid}
+                                    onClick={() => console.log("Seanss:", s.ssid)}
+                                    className="btn btn-outline-secondary d-flex p-0 border-secondary shadow-sm"
+                                    style={{
+                                        minWidth: '200px',
+                                        borderRadius: '12px',
+                                        overflow:"hidden",
+                                        textAlign: 'left'
+                                    }}
+                                    >
+
+                                        <div className="px-4 py-3 border-end border-secondary border-opacity-50 d-flex align-items-center">
+                                            <span className="display-6 fw-bold">{s.time.substring(0, 5)}</span>
+                                        </div>
+
+                                        <div className="px-3 py-3 d-flex flex-column justify-content-center">
+                                            <div className="fw-bold fs-5">{s.price.toFixed(2)} $</div>
+                                            <div className="small opacity-75">{s.hall ? s.hall.hid : '1'}. hall</div>
+                                        </div>
+                                   
+                                    </button>
                                 ))
 
-                            ) : (
-                                <p> No sessions</p>
+                            ) : (my
+                                <p className="text-light small"> No sessions available just yet</p>
                             )}
+                            </div>
                         </div>
 
 
