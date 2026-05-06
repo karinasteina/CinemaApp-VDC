@@ -9,6 +9,19 @@ function SeatMap() {
 
     const navigate = useNavigate();
 
+    const [selectedSeats, setSelectedSeats] = useState([]);
+
+    const handleSeatClick = (r, s) => {
+        setSelectedSeats((prev) => {
+            const isAlreadySelected = prev.find(seat => seat.r === r && seat.s === s);
+            if (isAlreadySelected) {
+                return prev.filter(seat => !(seat.r === r && seat.s === s));
+            } else {
+                return [...prev, { r, s }];
+            }
+        });
+    };
+
     useEffect(() => {
         fetch(`http://localhost:8080/session/${id}`)
             .then((res) => res.json())
@@ -18,7 +31,7 @@ function SeatMap() {
     }, [id]);
 
 
-     if (!session) {
+    if (!session) {
         return (
             <div className="d-flex justify-content-center align-items-center" style={{ height: ' 100vh', backgroundColor: '#111' }}>
                 <div className="spinner-border text-danger" style={{ width: '3rem', height: '3rem' }} role="status"></div>
@@ -75,39 +88,31 @@ function SeatMap() {
                             {rows.map((r) => (
                                 <div key={r} className="d-flex align-items-center mb-2 justify-content-center">
                                     <div className="me-3 fw-bold small text-end" style={{ width: '30px', color: '#555' }}>{r}</div>
-                                    {seats.map((s) => (
+                                    {seats.map((s) => {
 
-                                        <button
-                                            key={s}
-                                            className="btn btn-sm m-1 d-flex align-items-center justify-content center"
-                                            style={{
-                                                width: '38px',
-                                                height: '38px',
-                                                color: '#eee',
-                                                fontWeight: 'bold',
-                                                fontSize: '0.8rem',
-                                                backgroundColor: '#1a1a1a',
-                                                borderRadius: '6px',
-                                                border: '1px solid #333',
-                                                transition: 'all 0.2s ease-in-out'
-                                            }}
+                                        const isSelected = selectedSeats.some(seat => seat.r === r && seat.s === s);
+                                        return (
+                                            <button
+                                                key={s}
+                                                className="btn btn-sm m-1 d-flex align-items-center justify-content center"
+                                                style={{
+                                                    width: '38px',
+                                                    height: '38px',
+                                                    color: '#eee',
+                                                    fontWeight: 'bold',
+                                                    fontSize: '0.8rem',
+                                                    backgroundColor: isSelected ? '#dc3545' : '#1a1a1a',
+                                                    borderRadius: '6px',
+                                                    border: isSelected ? '#dc3545' : '#1a1a1a',
+                                                    transition: 'all 0.2s ease-in-out'
+                                                }}
 
-                                            onMouseOver={(e) => {
-                                                e.currentTarget.style.backgroundColor = '#dc3545';
-                                                e.currentTarget.style.borderColor = '#dc3545';
-                                                e.currentTarget.style.transform = 'scale(1.1)';
-                                            }}
-                                            onMouseOut={(e) => {
-                                                e.currentTarget.style.backgroundColor = '#1a1a1a';
-                                                e.currentTarget.style.borderColor = '#333';
-                                                e.currentTarget.style.transform = 'scale(1)';
-                                            }}
-                                            onClick={() => alert(`Row: ${r} Seat: ${s}`)}
-                                        >{s}
-                                        </button>
+                                                onClick={() => handleSeatClick(r, s)}
+                                            >{s}
+                                            </button>
+                                        );
 
-
-                                    ))}
+                                    })}
                                 </div>
 
 
@@ -115,9 +120,28 @@ function SeatMap() {
                         </div>
 
                         <div className="mt-5 mb-4 text-white small d-flex justify-content-center gap-3">
-                            <span><span className="d-inline-block rounded-1 me-1" style={{width: '10px', height: '10px', backgroundColor: '#1a1a1a', border: '1px solid #333'}}></span>Free</span>
-                            <span><span className="d-inline-block rounded-1 me-1" style={{width: '10px', height: '10px', backgroundColor: '#dc3545', border: '1px solid #333'}}></span>Taken</span>
+                            <span><span className="d-inline-block rounded-1 me-1" style={{ width: '10px', height: '10px', backgroundColor: '#1a1a1a', border: '1px solid #333' }}></span>Free</span>
+                            <span><span className="d-inline-block rounded-1 me-1" style={{ width: '10px', height: '10px', backgroundColor: '#dc3545', border: '1px solid #333' }}></span>Taken</span>
                         </div>
+
+                        {selectedSeats.length > 0 && (
+                            <div style={{marginTop: '20px'}}>
+                                <hr />
+                                <p>
+                                    Chosen <b>{selectedSeats.length}</b> seats.
+                                    Total <b>{(selectedSeats.length * session.price).toFixed(2)} $</b>
+                                </p>
+
+                                <button onClick={() => {
+                                    navigate(`/checkout/${id}`, {
+                                        state : {selectedSeats : selectedSeats}
+                                    })
+                                }}>
+                                    Buy
+                                </button> 
+
+                            </div>
+                        )}    
 
 
                     </div>
